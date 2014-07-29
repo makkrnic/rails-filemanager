@@ -1,0 +1,15 @@
+!!!5
+
+%html{ lang: I18n.locale.to_s }
+  %head
+    %title File Manager
+    -# = include_gon
+    = stylesheet_link_tag    "rails_filemanager/application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "rails_filemanager/application", "data-turbolinks-track" => true
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=0.8'}
+    = csrf_meta_tags
+    = render 'layouts/rails_filemanager/shim'
+
+  %body
+    .container
+      =yield

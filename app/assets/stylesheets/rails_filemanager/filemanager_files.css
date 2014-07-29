@@ -1,0 +1,20 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+.file-manager {
+  .file {
+    border: 1px solid #808080;
+    display: inline-block;
+    height: 200px;
+    margin: 15px;
+    overflow: hidden;
+    padding: 20px;
+    width: 200px;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+}

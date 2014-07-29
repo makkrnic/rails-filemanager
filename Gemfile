@@ -12,3 +12,18 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+gem 'paperclip'
+gem 'ancestry'
+
+
+gem "haml", "~> 4"
+gem "haml-rails", "~> 0.5"
+gem "sass", "~> 3.2"
+gem "sass-rails", "~> 4.0"
+
+gem "jquery-fileupload-rails"
+gem "jquery-rails"
+gem "jquery-turbolinks"
+gem "bootstrap-sass-rails"
+gem "zeroclipboard-rails"
