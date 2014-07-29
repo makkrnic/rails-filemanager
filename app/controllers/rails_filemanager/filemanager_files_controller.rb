@@ -1,7 +1,10 @@
 require_dependency "rails_filemanager/application_controller"
 
+
 module RailsFilemanager
   class FilemanagerFilesController < ApplicationController
+
+    before_action :load_current_owner
 
     def index
       respond_to do |format|
@@ -9,12 +12,22 @@ module RailsFilemanager
         format.html
         format.json do
 
+
+          # if params[:dir_id].present? && params[:dir_id] != '0'
+          #   @directory = MediaManagerFile.find_by id: params[:dir_id]
+          # else
+          #   @directory = @choir.media_manager_files.root_dir.first
+          #   unless @directory
+          #     @directory = @choir.media_manager_files.create name: @choir.name
+          #   end
+          # end
+          #
           if params[:dir_id].present? && params[:dir_id] != '0'
             @directory = FilemanagerFile.find_by id: params[:dir_id]
           else
-            @directory = FilemanagerFile.root_dir.first
+            @directory = @current_owner.rails_filemanager_files.root_dir.first
             unless @directory
-              @directory = FilemanagerFile.create name: 'root'
+              @directory = @current_owner.rails_filemanager_files.create name: 'root'
             end
           end
 
@@ -29,12 +42,12 @@ module RailsFilemanager
     end
 
     def create
-      file_params = media_manager_file_params
-      file_params['parent_id'] = FilemanagerFile.first.id if file_params['parent_id'].to_i == 0 || file_params['parent_id'].blank?
+      file_params = filemanager_file_params
+      file_params['parent_id'] = @current_owner.rails_filemanager_files.first.id if file_params['parent_id'].to_i == 0 || file_params['parent_id'].blank?
       #file_params.delete_if{|k, v| k == 'parent_id' && (v.to_i == 0 || v.blank?) }
       logger.debug file_params.inspect
       @upload = FilemanagerFile.new file_params
-      #@upload.choir = @choir
+      @upload.owner = @current_owner
 
       respond_to do |format|
         if @upload.save
@@ -52,13 +65,11 @@ module RailsFilemanager
     end
 
     def storage_free
-      choir = Choir.find_by id: params[:choir_id] if params[:choir_id]
-      choir = Choir.find_by slug: params[:choir] if params[:choir]
-      render json: { storage_free: (choir.settings.file_storage_limit - MediaManagerFile.total_storage_used(choir)) }
+      render json: { storage_free: (@current_owner.send(owner.class.storage_limit_method) - @current_owner.total_storage_used) }
     end
 
     def destroy
-      @file = MediaManagerFile.find_by id: params[:id]
+      @file = FilemanagerFile.find_by id: params[:id]
       
       if @file == nil
         head :not_found
@@ -71,15 +82,20 @@ module RailsFilemanager
 
     private
 
-      def media_manager_file_params
+      def filemanager_file_params
         params.require(:filemanager_file).permit :file, :name, :parent_id
       end
 
-      def check_privileges
-        unless current_user.can? :upload_files, @choir
-          flash[:error] = I18n.t 'general.invalid_permissions'
-          redirect_to root_url(@choir)
-        end
+      # def check_privileges
+      #   unless current_user.can? :upload_files, @choir
+      #     flash[:error] = I18n.t 'general.invalid_permissions'
+      #     redirect_to root_url(@choir)
+      #   end
+      # end
+
+      def load_current_owner
+        #@current_owner = self.send(self.current_owner_method)
+        @current_owner = self.current_owner
       end
   end
 end

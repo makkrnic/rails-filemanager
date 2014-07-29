@@ -1,4 +1,2 @@
-module RailsFilemanager
-  class ApplicationController < ActionController::Base
-  end
+class RailsFilemanager::ApplicationController < ApplicationController
 end

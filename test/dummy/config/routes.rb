@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
 
-  mount RailsFilemanager::Engine => "/rails_filemanager"
+  resources :owners
+
+  scope ':owner' do
+    mount RailsFilemanager::Engine => "/rails_filemanager"
+  end
 end

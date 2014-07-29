@@ -123,7 +123,7 @@
         $.ajax({
           url: '#{filemanager_files_path}',
           type: 'post',
-          data: {media_manager_file: { name: retval, parent_id: parentDirId } },
+          data: {filemanager_file: { name: retval, parent_id: parentDirId } },
           dataType: 'json',
           success: function() {
             console.log('success');

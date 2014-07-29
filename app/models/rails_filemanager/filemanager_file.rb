@@ -5,14 +5,15 @@ module RailsFilemanager
 
     has_ancestry
 
+    belongs_to :owner, polymorphic: true
 
     #validates :choir_id, uniqueness: true, if: -> { self.ancestry.nil? }
-    #validates :name, presence: true, if: -> { self.file_file_name.nil? }
-    #validates :file_file_name, presence: true, if: -> { self.name.nil? }
+    validates :name, presence: true, if: -> { self.file_file_name.nil? }
+    validates :file_file_name, presence: true, if: -> { self.name.nil? }
     do_not_validate_attachment_file_type :file
     
     
-    #validate :total_size_within_limits, if: -> { self.choir_id.present? }
+    validate :total_size_within_limits, if: -> { self.owner_id.present? }
 
     scope :root_dir, -> { where ancestry: nil }
 
@@ -36,19 +37,13 @@ module RailsFilemanager
       '/' + self.ancestors.map{|a| a.name + '/'}.join
     end
 
-    #def self.total_storage_used(choir)
-    #  choir.media_manager_files.sum(:file_file_size)
-    #end
+    def total_size_within_limits
+      if self.owner.present? && file.size
 
-    #def total_size_within_limits
-    #  if choir_id.present? && file.size
-    #    choir = Choir.find_by id: choir_id
-
-
-    #    if (self.class.total_storage_used(choir) + file.size) >= choir.settings.file_storage_limit
-    #      errors.add(:file, :too_big)
-    #    end
-    #  end
-    #end
+        if (self.owner.total_storage_used + file.size) >= owner.send(owner.class.storage_limit_method)
+          errors.add(:file, :too_big)
+        end
+      end
+    end
   end
 end

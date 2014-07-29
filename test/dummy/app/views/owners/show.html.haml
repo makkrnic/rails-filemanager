@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @owner.name
+%p
+  %b Max total file size:
+  = @owner.max_total_file_size
+
+= link_to 'Edit', edit_owner_path(@owner)
+\|
+= link_to 'Back', owners_path
