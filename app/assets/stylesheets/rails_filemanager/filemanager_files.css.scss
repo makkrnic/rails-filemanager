@@ -3,6 +3,29 @@
   They will automatically be included in application.css.
 */
 
+@import 'bootstrap';
+
+body {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+
+/* custom buttoms */
+.destroy-button {
+  @extend .btn;
+  @extend .btn-danger;
+  @extend .glyphicon;
+  @extend .glyphicon-remove;
+}
+
+.ok-button {
+  @extend .btn;
+  @extend .btn-success;
+  @extend .glyphicon;
+  @extend .glyphicon-ok;
+}
+
 .file-manager {
   .file {
     border: 1px solid #808080;
