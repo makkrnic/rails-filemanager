@@ -22,8 +22,10 @@ gem "haml-rails", "~> 0.5"
 gem "sass", "~> 3.2"
 gem "sass-rails", "~> 4.0"
 
-gem "jquery-fileupload-rails"
-gem "jquery-rails"
-gem "jquery-turbolinks"
-gem "bootstrap-sass-rails"
-gem "zeroclipboard-rails"
+gem "jquery-fileupload-rails", "~>0.4"
+gem "jquery-rails", "~> 3.1"
+gem "jquery-turbolinks", "~> 2.0"
+gem "bootstrap-sass-rails", "~> 3.1"
+gem "zeroclipboard-rails", "~> 0.1"
+
+gem 'sqlite3'

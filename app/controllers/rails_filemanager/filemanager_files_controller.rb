@@ -4,7 +4,8 @@ require_dependency "rails_filemanager/application_controller"
 module RailsFilemanager
   class FilemanagerFilesController < ApplicationController
 
-    before_action :load_current_owner
+    append_before_action :load_current_owner
+    append_before_action :check_privileges
 
     def index
       respond_to do |format|
@@ -86,12 +87,21 @@ module RailsFilemanager
         params.require(:filemanager_file).permit :file, :name, :parent_id
       end
 
-      # def check_privileges
-      #   unless current_user.can? :upload_files, @choir
-      #     flash[:error] = I18n.t 'general.invalid_permissions'
-      #     redirect_to root_url(@choir)
-      #   end
-      # end
+      def check_privileges
+        #unless current_user.can? :upload_files, @choir
+        #  flash[:error] = I18n.t 'general.invalid_permissions'
+        #  redirect_to root_url(@choir)
+        #end
+
+        if self.respond_to?(:user_can_manage_files?)
+          unless user_can_manage_files?
+            render 'authorization_failure'
+          end
+        else
+          warn "WARNING: `user_can_manage_files?` method not present. Allowing file managing"
+        end
+
+      end
 
       def load_current_owner
         #@current_owner = self.send(self.current_owner_method)
