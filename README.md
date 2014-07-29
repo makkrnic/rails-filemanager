@@ -47,7 +47,12 @@ acts_as_filemanager_owner storage_limit_method: :my_method
 
 And, of course, define the method you want to use.
 
+### User authorization
+
+If you want to allow or deny file managing, you should implement the method `user_can_manage_files?` in your application controller.
+
+In the future, that will be changed to something smarter.
+
 
 ## TODO
-* user authorization
 * tests
