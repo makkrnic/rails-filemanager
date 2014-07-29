@@ -12,7 +12,7 @@ Currently it supports file owners and owners' maximum storage space. The files a
 Add this line to your Gemfile
 
 ```ruby
-gem 'rails-filemanager-ajax', git: "https://github.com/makkrnic/rails-filemanager-ajax.git"
+gem 'rails_filemanager_ajax', git: "https://github.com/makkrnic/rails-filemanager-ajax.git"
 ```
   
 Mount the engine
