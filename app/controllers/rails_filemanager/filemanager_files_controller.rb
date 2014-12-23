@@ -105,6 +105,7 @@ module RailsFilemanager
 
       def load_current_owner
         #@current_owner = self.send(self.current_owner_method)
+
         @current_owner = self.current_owner
       end
   end

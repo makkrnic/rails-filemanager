@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_filemanager_ajax (0.0.1)
+    rails_filemanager_ajax (0.0.2)
       ancestry (~> 2.1)
       bootstrap-sass-rails (~> 3.1)
       haml (~> 4)
@@ -151,7 +151,7 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
-  bootstrap-sass-rails (~> 3.1)
+  bootstrap-sass
   haml (~> 4)
   haml-rails (~> 0.5)
   jquery-fileupload-rails (~> 0.4)

@@ -25,7 +25,7 @@ gem "sass-rails", "~> 4.0"
 gem "jquery-fileupload-rails", "~>0.4"
 gem "jquery-rails", "~> 3.1"
 gem "jquery-turbolinks", "~> 2.0"
-gem "bootstrap-sass-rails", "~> 3.1"
+gem "bootstrap-sass"
 gem "zeroclipboard-rails", "~> 0.1"
 
 gem 'sqlite3'
